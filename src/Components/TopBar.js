@@ -1,67 +1,53 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './../Styles/TopBar.css';
 import akcseImg from './../Assets/akcse.png';
+import { useAppContext } from '../AppContext';
 
 const TopBar = () => {
-  const [name, setName] = useState('Ismeretlen');
-  const [tempName, setTempName] = useState(name)
-  const [isNameChange, setIsNameChange] = useState(false)
-  const [whoami, setWhoami] = useState('Játékos');
-  const [akcsePlayer, setAkcsePlayer] = useState(10000);
-  const [akcseOperator, setAkcseOperator] = useState(0);
-
-  const resetState = () => {
-    setName('Ismeretlen');
-    setTempName(name)
-    setIsNameChange(false)
-    setWhoami('Játékos');
-    setAkcsePlayer(10000);
-    setAkcseOperator(0);
-  }
-
+  const appContextData = useAppContext()
   return (
     <div className="topbar-container">
-      {isNameChange ? 
+      {appContextData.isNameChange ? 
         (<div className="flex-container">
           <input type="text" className="input" autoFocus onChange={(event) => {
-            setTempName(event.target.value);
+            appContextData.setTempName(event.target.value);
           }}></input> :
           <button className="button" onClick={() => {
-            setIsNameChange(false);
-            setName(tempName);
+            appContextData.setIsNameChange(false);
+            appContextData.setName(appContextData.tempName);
           }}>Név mentése</button>
           <button className="button" onClick={() => {
-            setIsNameChange(false);
+            appContextData.setIsNameChange(false);
           }}>Vissza mentése</button>
         </div> 
         ) : (
           <div className="flex-container">
-            <div className="bar-text">{name}</div>
+            <div className="bar-text">{appContextData?.name}</div>
             <button className="button" onClick={() => {
-              setIsNameChange(true);
+              appContextData.setIsNameChange(true);
             }}>Név változtatása</button> 
           </div>
         )
       }
       <div className="flex-container">
-        <p className="bar-text">Játékos egyenlege: {akcsePlayer}</p>
+        <p className="bar-text">Játékos egyenlege: {appContextData.akcsePlayer}</p>
         <img src={akcseImg} alt='akcseImg' className='akcse-img' title="akcse" />
       </div>
       <div className="flex-container">
-        <p className="bar-text">Üzemeltető egyenlege: {akcseOperator}</p>
+        <p className="bar-text">Üzemeltető egyenlege: {appContextData.akcseOperator}</p>
         <img src={akcseImg} alt='akcseImg'  className='akcse-img' title="Akcse" />
       </div>
       <button className="button" onClick={() => {
-        resetState();
+        appContextData.resetState();
       }}>Visszaállítás</button>
       <button className="button" onClick={() => {
-        whoami === "Játékos" ? (
-          setWhoami("Üzemeltető")
+        appContextData.whoami === "Játékos" ? (
+          appContextData.setWhoami("Üzemeltető")
         ) : (
-          setWhoami("Játékos")
+          appContextData.setWhoami("Játékos")
         );
       }}>Oldal váltás</button>
-      <p className='bar-text'>{whoami}</p>
+      <p className='bar-text'>{appContextData.whoami}</p>
     </div>
   )
 }
