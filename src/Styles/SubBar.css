@@ -1,0 +1,12 @@
+.subbar-container {
+    background-color: #ffff00;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.subbar-container .bar-text {
+    font-size: 30px;
+    color: #000000;
+}
