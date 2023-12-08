@@ -1,13 +1,14 @@
 import React from 'react'
 import TopBar from './Components/TopBar'
 import SubBar from './Components/SubBar'
+import { AppContextProvider } from './AppContext'
 
 const App = () => {
   return (
-    <div>
+    <AppContextProvider>
       <TopBar />
       <SubBar />
-    </div>
+    </AppContextProvider>
   )
 }
 
