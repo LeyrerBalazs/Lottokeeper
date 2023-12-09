@@ -3,6 +3,7 @@ import TopBar from './Components/TopBar'
 import Lottery from './Components/Lottery'
 import Tickets from './Components/Tickets'
 
+
 const App = () => {
   return (
     <div>
