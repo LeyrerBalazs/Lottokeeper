@@ -31,7 +31,8 @@ export const AppContextProvider = ({ children }) => {
         akcsePlayer,
         setAkcsePlayer,
         akcseOperator,
-        setAkcseOperator
+        setAkcseOperator,
+        resetState
     };
 
     return (

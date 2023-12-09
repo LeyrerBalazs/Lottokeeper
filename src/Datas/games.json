@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "numbers": [1, 25, 11, 65, 42],
+        "isRuled": false,
+        "ruledNumbers": []
+    },
+    {
+        "id": 2,
+        "numbers": [1, 25, 11, 65, 42],
+        "isRuled": true,
+        "ruledNumbers": [43, 32, 43, 65, 1]
+    }
+]

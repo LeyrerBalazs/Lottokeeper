@@ -1,14 +1,15 @@
 import React from 'react'
 import TopBar from './Components/TopBar'
-import SubBar from './Components/SubBar'
-import { AppContextProvider } from './AppContext'
+import Lottery from './Components/Lottery'
+import Tickets from './Components/Tickets'
 
 const App = () => {
   return (
-    <AppContextProvider>
+    <div>
       <TopBar />
-      <SubBar />
-    </AppContextProvider>
+      <Lottery />
+      <Tickets />
+    </div>
   )
 }
 

@@ -1,0 +1,15 @@
+.ticket-container {
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ticket-container .text {
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+.ticket-container .button {
+    font-size: 28px;
+    height: 35px;
+}
