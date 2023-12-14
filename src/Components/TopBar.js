@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './../Styles/TopBar.css';
 import akcseImg from './../Assets/akcse.png';
 import { useAppContext } from '../AppContext';
 
 const TopBar = () => {
   const appContextData = useAppContext()
+
+  useEffect (() => {
+    if (appContextData.first === true) {
+      appContextData.setName(localStorage.getItem('name'))
+    }
+    else {
+      localStorage.setItem('name', appContextData.name)
+    }
+  }, [appContextData.name]) 
   return (
     <div className="topbar-container">
       {appContextData.isNameChange ? 
@@ -15,6 +24,7 @@ const TopBar = () => {
           <button className="button" onClick={() => {
             appContextData.setIsNameChange(false);
             appContextData.setName(appContextData.tempName);
+            localStorage.setItem('name', appContextData.name);
           }}>Név mentése</button>
           <button className="button" onClick={() => {
             appContextData.setIsNameChange(false);
@@ -48,6 +58,11 @@ const TopBar = () => {
         );
       }}>Oldal váltás</button>
       <p className='bar-text'>{appContextData.whoami}</p>
+      <button className='button' onClick={() => {
+        appContextData.setName(localStorage.getItem('name'));
+        appContextData.setAkcsePlayer(parseInt(localStorage.getItem('akcsePlayer')));
+        appContextData.setAkcseOperator(parseInt(localStorage.getItem('akcseOperator')));
+      }}>Előző játékmenet</button>
     </div>
   )
 }

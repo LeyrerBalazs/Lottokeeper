@@ -8,4 +8,45 @@
 .lottery-container .button {
     width: 60px;
     height: 60px;
+    font-size: 30px;
+    border-radius: 20px;
+    margin: 2px;
+}
+.lottery-container .button:hover {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    background-color: #ff7777;
+    border-radius: 20px;
+    margin: 2px;
+}
+.lottery-container .button2 {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    background-color: #ff0000;
+    border-radius: 20px;
+    margin: 2px;
+}
+.lottery-container .button2:hover {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    background-color: #aaaaaa;
+    border-radius: 20px;
+    margin: 2px;
+}
+.lottery-container .button3 {
+    width: 160px;
+    height: 60px;
+    font-size: 30px;
+    background-color: #2222ff;
+    border-radius: 20px;
+}
+.lottery-container .button3:hover {
+    width: 160px;
+    height: 60px;
+    font-size: 30px;
+    background-color: #4444ff;
+    border-radius: 20px;
 }

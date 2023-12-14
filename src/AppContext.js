@@ -9,6 +9,7 @@ export const AppContextProvider = ({ children }) => {
     const [whoami, setWhoami] = useState('Játékos');
     const [akcsePlayer, setAkcsePlayer] = useState(10000);
     const [akcseOperator, setAkcseOperator] = useState(0);
+    const [first, setFirst] = useState(true)
 
     const resetState = () => {
         setName('Ismeretlen');
@@ -32,7 +33,9 @@ export const AppContextProvider = ({ children }) => {
         setAkcsePlayer,
         akcseOperator,
         setAkcseOperator,
-        resetState
+        resetState,
+        first,
+        setFirst
     };
 
     return (
