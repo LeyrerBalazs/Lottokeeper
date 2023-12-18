@@ -49,7 +49,7 @@ const TopBar = () => {
       </div>
       <button className="button" onClick={() => {
         appContextData.resetState();
-      }}>Visszaállítás</button>
+      }}>Visszaállítás/Start</button>
       <button className="button" onClick={() => {
         appContextData.whoami === "Játékos" ? (
           appContextData.setWhoami("Üzemeltető")

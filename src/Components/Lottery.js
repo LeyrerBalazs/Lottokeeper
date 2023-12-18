@@ -4,33 +4,40 @@ import { useAppContext } from '../AppContext'
 
 const Lottery = () => {
     const [buttons, setButtons] = useState([])
-    const [selected, setSelected] = useState([])
     const appContextData = useAppContext()
 
     const betPlayer = () => {
-        if (selected.length !== 5) {
-            alert("Válasz, ki 5 számot!\nEddig kiválaszott szám:" + selected.length + " (Még " + (5 - selected.length) + " kell)");
+        if (appContextData.selected.length !== 5) {
+            alert("Válasz, ki 5 számot!\nEddig kiválaszott szám:" + appContextData.selected.length + " (Még " + (5 - appContextData.selected.length) + " kell)");
         }
         else {
             if (appContextData.akcsePlayer >= 500) {
+                console.log(appContextData.games)
                 appContextData.setAkcsePlayer(appContextData.akcsePlayer - 500);
                 appContextData.setAkcseOperator(appContextData.akcseOperator + 500);
+                appContextData.setGames([...appContextData.games, {
+                        "id": appContextData.games.length + 1,
+                        "numbers": appContextData.selected,
+                        "isRuled": false,
+                        "ruledNumbers": []
+                }])
+                console.log(appContextData.games)
             }
             else {
                 alert("Nincs elég akcséd hogy játsz!")
             }
-            setSelected([])
+            appContextData.setSelected([])
         }
     }
 
     const deleteSelected = (num) => {
-        setSelected(selected.filter(item => num !== item))
+        appContextData.setSelected(appContextData.selected.filter(item => num !== item))
     }
 
     const selectedNew = (num) => {
         let disallow = false
-        for (let i = 0; i < selected.length; i++) {
-            if (num === selected[i]) {
+        for (let i = 0; i < appContextData.selected.length; i++) {
+            if (num === appContextData.selected[i]) {
                 disallow = true
             }
         }
@@ -38,11 +45,11 @@ const Lottery = () => {
             alert("Hiba már kiválasztottad ezt a számot!")
         }
         else {
-            if (selected.length >= 5) {
+            if (appContextData.selected.length >= 5) {
                 alert("Kiválasztottál már 5 számot!")
             }
             else {
-                setSelected([...selected, num])
+                appContextData.setSelected([...appContextData.selected, num])
             }
         }
     }
@@ -51,16 +58,18 @@ const Lottery = () => {
         if (appContextData.first !== true) {
             localStorage.setItem('akcsePlayer', appContextData.akcsePlayer);
             localStorage.setItem('akcseOperator', appContextData.akcseOperator);
+            localStorage.setItem('games', appContextData.games);
         }
         else {
             appContextData.setFirst(false);
             appContextData.setAkcsePlayer(parseInt(localStorage.getItem('akcsePlayer')))
             appContextData.setAkcseOperator(parseInt(localStorage.getItem('akcseOperator')))
+            appContextData.setAkcseOperator(parseInt(localStorage.getItem('akcseOperator')))
         }
-    }, [appContextData.akcsePlayer, appContextData.akcseOperator]);
+    }, [appContextData.akcsePlayer, appContextData.akcseOperator, appContextData.games]);
 
     const displayButtons = () => {
-        let selectedNums = selected
+        let selectedNums = appContextData.selected
         let newButtons = []
         for (let i=1; i < 40; i++) {
             if (selectedNums.length === 0) {
@@ -86,7 +95,7 @@ const Lottery = () => {
 
     useEffect(() => {
         displayButtons()
-    }, [selected])
+    }, [appContextData.selected])
     
     return (
         <>

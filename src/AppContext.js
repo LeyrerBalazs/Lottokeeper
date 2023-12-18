@@ -10,6 +10,8 @@ export const AppContextProvider = ({ children }) => {
     const [akcsePlayer, setAkcsePlayer] = useState(10000);
     const [akcseOperator, setAkcseOperator] = useState(0);
     const [first, setFirst] = useState(true)
+    const [games, setGames] = useState([])
+    const [selected, setSelected] = useState([])
 
     const resetState = () => {
         setName('Ismeretlen');
@@ -18,6 +20,7 @@ export const AppContextProvider = ({ children }) => {
         setWhoami('Játékos');
         setAkcsePlayer(10000);
         setAkcseOperator(0);
+        setGames([]);
     };
 
     const contextData = {
@@ -35,7 +38,11 @@ export const AppContextProvider = ({ children }) => {
         setAkcseOperator,
         resetState,
         first,
-        setFirst
+        setFirst,
+        games,
+        setGames,
+        selected,
+        setSelected
     };
 
     return (
