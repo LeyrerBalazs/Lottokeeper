@@ -47,7 +47,7 @@ const TopBar = () => {
         <p className="bar-text">Üzemeltető egyenlege: {appContextData.akcseOperator}</p>
         <img src={akcseImg} alt='akcseImg'  className='akcse-img' title="Akcse" />
       </div>
-      { appContextData.name !== "Ismeretlen" || appContextData.akcseOperator !== 0 || appContextData.akcsePlayer !== 10000 ? <button className="button" onClick={() => {
+      { (appContextData.name !== "Ismeretlen" || appContextData.akcseOperator !== 0 || appContextData.akcsePlayer !== 10000) && appContextData.whoami === "Üzemeltető" ? <button className="button" onClick={() => {
         appContextData.resetState();
       }}>Visszaállítás/Start</button> : null}
       <button className="button" onClick={() => {
@@ -58,11 +58,6 @@ const TopBar = () => {
         );
       }}>Oldal váltás</button>
       <p className='bar-text'>{appContextData.whoami}</p>
-      <button className='button' onClick={() => {
-        appContextData.setName(localStorage.getItem('name'));
-        appContextData.setAkcsePlayer(parseInt(localStorage.getItem('akcsePlayer')));
-        appContextData.setAkcseOperator(parseInt(localStorage.getItem('akcseOperator')));
-      }}>Előző játékmenet</button>
     </div>
   )
 }

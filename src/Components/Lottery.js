@@ -19,7 +19,10 @@ const Lottery = () => {
                         "id": appContextData.games.length + 1,
                         "numbers": appContextData.selected,
                         "isRuled": false,
-                        "ruledNumbers": []
+                        "ruledNumbers": [],
+                        "cost": 500,
+                        "win": 0,
+                        "wincount" : 0
                 }])
                 console.log(appContextData.games)
             }
@@ -69,6 +72,7 @@ const Lottery = () => {
             const gamesData = localStorage.getItem('games')
             appContextData.setGames(gamesData ? JSON.parse(gamesData) : [])
         }
+        
     }, [appContextData.akcsePlayer, appContextData.akcseOperator, appContextData.games]);
 
     const displayButtons = () => {
@@ -102,13 +106,16 @@ const Lottery = () => {
     
     return (
         <>
-            <div className='lottery-container'>
-                {buttons}
-                
-            </div>
-            <div  className='lottery-container'>
-                <button className='button3' onClick={() => {betPlayer()}}>Megtesz</button>
-            </div>
+            {appContextData.whoami === "Játékos" ?
+                <>
+                    <div className='lottery-container'>
+                        {buttons}
+                    </div>
+                    <div  className='lottery-container'>
+                        <button className='button3' onClick={() => {betPlayer()}}>Megtesz</button>
+                    </div>
+                </>
+            : null }
         </>
     )
 }

@@ -23,35 +23,95 @@ const Tickets = () => {
                     "id": id,
                     "numbers": appContextData.games[i].numbers,
                     "isRuled": true,
-                    "ruledNumbers": nums
+                    "ruledNumbers": nums,
+                    "cost": 500,
+                    "win": 0
                 }
-                games.push(updated)
                 let winedcount = 0
-                for (let j=0; j < games[i].numbers.length; j++) {
+                for (let j=0; j < updated.numbers.length; j++) {
                     for (let k=0; k < nums.length; k++) {
-                        if (nums[k] === games[i].numbers[j]) {
+                        if (nums[k] === updated.numbers[j]) {
                             winedcount++;
                         }
                     }
                 }
                 switch (winedcount) {
+                    case 0:
+                        updated = {
+                            "id": id,
+                            "numbers": appContextData.games[i].numbers,
+                            "isRuled": true,
+                            "ruledNumbers": nums,
+                            "cost": 500,
+                            "win": 0,
+                            "wincount" : 0
+                        }
+                        break;
+                    case 1:
+                        updated = {
+                            "id": id,
+                            "numbers": appContextData.games[i].numbers,
+                            "isRuled": true,
+                            "ruledNumbers": nums,
+                            "cost": 500,
+                            "win": 0,
+                            "wincount" : 1
+                        }
+                        break;
                     case 2:
-                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 500 * 0.3)
-                        appContextData.setAkcseOperator(appContextData.akcseOperator - 500 * 0.3)
+                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 750)
+                        appContextData.setAkcseOperator(appContextData.akcseOperator - 750)
+                        updated = {
+                            "id": id,
+                            "numbers": appContextData.games[i].numbers,
+                            "isRuled": true,
+                            "ruledNumbers": nums,
+                            "cost": 500,
+                            "win": 750,
+                            "wincount" : 2
+                        }
                         break;
                     case 3:
-                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 500 * 0.7)
-                        appContextData.setAkcseOperator(appContextData.akcseOperator - 500 * 0.7)
+                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 1500)
+                        appContextData.setAkcseOperator(appContextData.akcseOperator - 1500)
+                        updated = {
+                            "id": id,
+                            "numbers": appContextData.games[i].numbers,
+                            "isRuled": true,
+                            "ruledNumbers": nums,
+                            "cost": 500,
+                            "win": 1500,
+                            "wincount" : 3
+                        }
                         break;
                     case 4:
-                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 500 * 2)
-                        appContextData.setAkcseOperator(appContextData.akcseOperator - 500 * 2)
+                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 2500)
+                        appContextData.setAkcseOperator(appContextData.akcseOperator - 2500)
+                        updated = {
+                            "id": id,
+                            "numbers": appContextData.games[i].numbers,
+                            "isRuled": true,
+                            "ruledNumbers": nums,
+                            "cost": 500,
+                            "win": 2500,
+                            "wincount" : 4
+                        }
                         break;
                     case 5:
-                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 500 * 5)
-                        appContextData.setAkcseOperator(appContextData.akcseOperator - 500 * 5)
+                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 5500)
+                        appContextData.setAkcseOperator(appContextData.akcseOperator - 5500)
+                        updated = {
+                            "id": id,
+                            "numbers": appContextData.games[i].numbers,
+                            "isRuled": true,
+                            "ruledNumbers": nums,
+                            "cost": 500,
+                            "win": 5500,
+                            "wincount" : 5
+                        }
                         break;
                 }
+                games.push(updated)
             }
             else {
                 games.push(appContextData.games[i])
@@ -63,7 +123,7 @@ const Tickets = () => {
     return (
         <div className='ticket-container'>
             {appContextData.games !== undefined ? appContextData.games.map((game) => {
-                return <div className='text'>{game.id}. Játék: Játékos megtett számai: {game.numbers[0]}, {game.numbers[1]}, {game.numbers[2]}, {game.numbers[3]}, {game.numbers[4]} {game.isRuled ? <>Sorsolt számok: {game.ruledNumbers[0]}, {game.ruledNumbers[1]}, {game.ruledNumbers[2]}, {game.ruledNumbers[3]}, {game.ruledNumbers[4]}</> : appContextData.whoami === "Üzemeltető" ? <button className='button' onClick={() => {
+                return <div className='text'>{game.id}. Játék: Játékos megtett számai: {game.numbers[0]}, {game.numbers[1]}, {game.numbers[2]}, {game.numbers[3]}, {game.numbers[4]} {game.isRuled ? <>Sorsolt számok: {game.ruledNumbers[0]}, {game.ruledNumbers[1]}, {game.ruledNumbers[2]}, {game.ruledNumbers[3]}, {game.ruledNumbers[4]} <span style={appContextData.whoami === "Üzemeltető" ? { color: "#00ff00" } : { color: "#ff0000"}}>{appContextData.whoami == "Üzemeltető" ? <>+</> : <>-</>}{game.cost}</span>akcse <span style={appContextData.whoami === "Játékos" ? { color: "#00ff00" } : { color: "#ff0000"}}>{appContextData.whoami == "Játékos" ? <>+</> : <>-</>}{game.win}</span>akcse Talált számok:{game.wincount}</> : appContextData.whoami === "Üzemeltető" ? <button className='button' onClick={() => {
                     ruleNumber(game.id);
                 }}>Sorsol</button> : <>Még sorsolásra vár</>}</div>
             }) : null}
