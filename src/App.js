@@ -1,8 +1,7 @@
-import React from 'react'
-import TopBar from './Components/TopBar'
-import Lottery from './Components/Lottery'
-import Tickets from './Components/Tickets'
-
+import React from 'react';
+import TopBar from './Components/TopBar';
+import Lottery from './Components/Lottery';
+import Tickets from './Components/Tickets';
 
 const App = () => {
   return (
@@ -11,7 +10,7 @@ const App = () => {
       <Lottery />
       <Tickets />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

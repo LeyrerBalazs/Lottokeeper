@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import './../Styles/Lottery.css'
-import { useAppContext } from '../AppContext'
+import React, { useEffect, useState } from 'react';
+import { useAppContext } from '../AppContext';
+import './../Styles/Lottery.css';
 
 const Lottery = () => {
-    const [buttons, setButtons] = useState([])
-    const appContextData = useAppContext()
+    const [buttons, setButtons] = useState([]);
+    const appContextData = useAppContext();
 
     const betPlayer = () => {
         if (appContextData.selected.length !== 5) {
@@ -12,7 +12,6 @@ const Lottery = () => {
         }
         else {
             if (appContextData.akcsePlayer >= 500) {
-                console.log(appContextData.games)
                 appContextData.setAkcsePlayer(appContextData.akcsePlayer - 500);
                 appContextData.setAkcseOperator(appContextData.akcseOperator + 500);
                 appContextData.setGames([...appContextData.games, {
@@ -23,39 +22,38 @@ const Lottery = () => {
                         "cost": 500,
                         "win": 0,
                         "wincount" : 0
-                }])
-                console.log(appContextData.games)
+                }]);
             }
             else {
-                alert("Nincs elég akcséd hogy játsz!")
+                alert("Nincs elég akcséd hogy játsz!");
             }
-            appContextData.setSelected([])
+            appContextData.setSelected([]);
         }
-    }
+    };
 
     const deleteSelected = (num) => {
-        appContextData.setSelected(appContextData.selected.filter(item => num !== item))
-    }
+        appContextData.setSelected(appContextData.selected.filter(item => num !== item));
+    };
 
     const selectedNew = (num) => {
-        let disallow = false
+        let disallow = false;
         for (let i = 0; i < appContextData.selected.length; i++) {
             if (num === appContextData.selected[i]) {
-                disallow = true
+                disallow = true;
             }
         }
         if (disallow) {
-            alert("Hiba már kiválasztottad ezt a számot!")
+            alert("Hiba már kiválasztottad ezt a számot!");
         }
         else {
             if (appContextData.selected.length >= 5) {
-                alert("Kiválasztottál már 5 számot!")
+                alert("Kiválasztottál már 5 számot!");
             }
             else {
-                appContextData.setSelected([...appContextData.selected, num])
+                appContextData.setSelected([...appContextData.selected, num]);
             }
         }
-    }
+    };
 
     useEffect(() => {
         if (appContextData.first !== true) {
@@ -65,48 +63,47 @@ const Lottery = () => {
         }
         else {
             appContextData.setFirst(false);
-            const akcsePlayerData = localStorage.getItem('akcsePlayer')
-            appContextData.setAkcsePlayer(parseInt(akcsePlayerData ? akcsePlayerData : 10000))
-            const akcseOperatorData = localStorage.getItem('akcseOperator')
-            appContextData.setAkcseOperator(parseInt(akcseOperatorData ? akcseOperatorData : 0))
-            const gamesData = localStorage.getItem('games')
-            appContextData.setGames(gamesData ? JSON.parse(gamesData) : [])
+            const akcsePlayerData = localStorage.getItem('akcsePlayer');
+            appContextData.setAkcsePlayer(parseInt(akcsePlayerData ? akcsePlayerData : 10000));
+            const akcseOperatorData = localStorage.getItem('akcseOperator');
+            appContextData.setAkcseOperator(parseInt(akcseOperatorData ? akcseOperatorData : 0));
+            const gamesData = localStorage.getItem('games');
+            appContextData.setGames(gamesData ? JSON.parse(gamesData) : []);
         }
-        
     }, [appContextData.akcsePlayer, appContextData.akcseOperator, appContextData.games]);
 
     const displayButtons = () => {
-        let selectedNums = appContextData.selected
-        let newButtons = []
+        let selectedNums = appContextData.selected;
+        let newButtons = [];
         for (let i=1; i < 40; i++) {
             if (selectedNums.length === 0) {
-                newButtons.push(<button key={i} className='button' onClick={() => {selectedNew(i)}}>{i}</button>)
+                newButtons.push(<button key={i} className='button' onClick={() => {selectedNew(i)}}>{i}</button>);
             }
             else if (selectedNums.length > 0) {
-                let isSelected = false
+                let isSelected = false;
                 for (let j = 0; j < selectedNums.length; j++) {
                     if (selectedNums[j] === i) {
-                        isSelected = true
+                        isSelected = true;
                     }
                 }
                 if (isSelected) {
-                    newButtons.push(<button key={i} className='button2' onClick={() => {deleteSelected(i)}}>{i}</button>)
+                    newButtons.push(<button key={i} className='button2' onClick={() => {deleteSelected(i)}}>{i}</button>);
                 }
                 else {
-                    newButtons.push(<button key={i} className='button' onClick={() => {selectedNew(i)}}>{i}</button>)
+                    newButtons.push(<button key={i} className='button' onClick={() => {selectedNew(i)}}>{i}</button>);
                 }
             }
         }
-        setButtons(newButtons)
-    }
+        setButtons(newButtons);
+    };
 
     useEffect(() => {
-        displayButtons()
-    }, [appContextData.selected])
+        displayButtons();
+    }, [appContextData.selected]);
     
     return (
         <>
-            {appContextData.whoami === "Játékos" ?
+            {appContextData.whoami === "Játékos" ? (
                 <>
                     <div className='lottery-container'>
                         {buttons}
@@ -115,9 +112,11 @@ const Lottery = () => {
                         <button className='button3' onClick={() => {betPlayer()}}>Megtesz</button>
                     </div>
                 </>
-            : null }
+            ) : (
+                null
+            )}
         </>
-    )
-}
+    );
+};
 
-export default Lottery
+export default Lottery;

@@ -1,25 +1,25 @@
-import React, {createContext, useState, useContext, Children} from "react";
+import React, {createContext, useState, useContext} from "react";
 
 const appContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
     const [name, setName] = useState('Ismeretlen');
-    const [tempName, setTempName] = useState(name);
-    const [isNameChange, setIsNameChange] = useState(false);
     const [whoami, setWhoami] = useState('Játékos');
+    const [tempName, setTempName] = useState(name);
     const [akcsePlayer, setAkcsePlayer] = useState(10000);
     const [akcseOperator, setAkcseOperator] = useState(0);
-    const [first, setFirst] = useState(true)
-    const [games, setGames] = useState([])
-    const [selected, setSelected] = useState([])
+    const [first, setFirst] = useState(true);
+    const [isNameChange, setIsNameChange] = useState(false);
+    const [games, setGames] = useState([]);
+    const [selected, setSelected] = useState([]);
 
     const resetState = () => {
         setName('Ismeretlen');
-        setTempName(name)
-        setIsNameChange(false)
         setWhoami('Játékos');
+        setTempName(name);
         setAkcsePlayer(10000);
         setAkcseOperator(0);
+        setIsNameChange(false);
         setGames([]);
     };
 

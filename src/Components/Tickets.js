@@ -1,22 +1,20 @@
-import React from 'react'
-import { useAppContext } from '../AppContext'
-import './../Styles/Tickets.css'
+import React from 'react';
+import { useAppContext } from '../AppContext';
+import './../Styles/Tickets.css';
 
 const Tickets = () => {
-    const appContextData = useAppContext()
+    const appContextData = useAppContext();
 
     const ruleNumber = (id) => {
-        let nums = []
+        let nums = [];
         for (let i=0; i <  5; i++) {
             let randomnumber = Math.floor(Math.random() * (39 - 1));
             while (randomnumber in nums) {
                 randomnumber = Math.floor(Math.random() * (39 - 1));
             }
-            nums.push(randomnumber)
+            nums.push(randomnumber);
         }
-        console.log(id)
-        console.log(nums)
-        let games = []
+        let games = [];
         for (let i=0; i < appContextData.games.length; i++) {
             if (id === i+1) {
                 let updated = {
@@ -26,8 +24,8 @@ const Tickets = () => {
                     "ruledNumbers": nums,
                     "cost": 500,
                     "win": 0
-                }
-                let winedcount = 0
+                };
+                let winedcount = 0;
                 for (let j=0; j < updated.numbers.length; j++) {
                     for (let k=0; k < nums.length; k++) {
                         if (nums[k] === updated.numbers[j]) {
@@ -45,7 +43,7 @@ const Tickets = () => {
                             "cost": 500,
                             "win": 0,
                             "wincount" : 0
-                        }
+                        };
                         break;
                     case 1:
                         updated = {
@@ -56,11 +54,11 @@ const Tickets = () => {
                             "cost": 500,
                             "win": 0,
                             "wincount" : 1
-                        }
+                        };
                         break;
                     case 2:
-                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 750)
-                        appContextData.setAkcseOperator(appContextData.akcseOperator - 750)
+                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 750);
+                        appContextData.setAkcseOperator(appContextData.akcseOperator - 750);
                         updated = {
                             "id": id,
                             "numbers": appContextData.games[i].numbers,
@@ -69,11 +67,11 @@ const Tickets = () => {
                             "cost": 500,
                             "win": 750,
                             "wincount" : 2
-                        }
+                        };
                         break;
                     case 3:
-                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 1500)
-                        appContextData.setAkcseOperator(appContextData.akcseOperator - 1500)
+                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 1500);
+                        appContextData.setAkcseOperator(appContextData.akcseOperator - 1500);
                         updated = {
                             "id": id,
                             "numbers": appContextData.games[i].numbers,
@@ -82,11 +80,11 @@ const Tickets = () => {
                             "cost": 500,
                             "win": 1500,
                             "wincount" : 3
-                        }
+                        };
                         break;
                     case 4:
-                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 2500)
-                        appContextData.setAkcseOperator(appContextData.akcseOperator - 2500)
+                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 2500);
+                        appContextData.setAkcseOperator(appContextData.akcseOperator - 2500);
                         updated = {
                             "id": id,
                             "numbers": appContextData.games[i].numbers,
@@ -95,11 +93,11 @@ const Tickets = () => {
                             "cost": 500,
                             "win": 2500,
                             "wincount" : 4
-                        }
+                        };
                         break;
                     case 5:
-                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 5500)
-                        appContextData.setAkcseOperator(appContextData.akcseOperator - 5500)
+                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 5500);
+                        appContextData.setAkcseOperator(appContextData.akcseOperator - 5500);
                         updated = {
                             "id": id,
                             "numbers": appContextData.games[i].numbers,
@@ -108,27 +106,31 @@ const Tickets = () => {
                             "cost": 500,
                             "win": 5500,
                             "wincount" : 5
-                        }
+                        };
                         break;
                 }
-                games.push(updated)
+                games.push(updated);
             }
             else {
-                games.push(appContextData.games[i])
+                games.push(appContextData.games[i]);
             }
         }
-        appContextData.setGames(games)
-    }
+        appContextData.setGames(games);
+    };
 
     return (
         <div className='ticket-container'>
-            {appContextData.games !== undefined ? appContextData.games.map((game) => {
-                return <div className='text'>{game.id}. Játék: Játékos megtett számai: {game.numbers[0]}, {game.numbers[1]}, {game.numbers[2]}, {game.numbers[3]}, {game.numbers[4]} {game.isRuled ? <>Sorsolt számok: {game.ruledNumbers[0]}, {game.ruledNumbers[1]}, {game.ruledNumbers[2]}, {game.ruledNumbers[3]}, {game.ruledNumbers[4]} <span style={appContextData.whoami === "Üzemeltető" ? { color: "#00ff00" } : { color: "#ff0000"}}>{appContextData.whoami == "Üzemeltető" ? <>+</> : <>-</>}{game.cost}</span>akcse <span style={appContextData.whoami === "Játékos" ? { color: "#00ff00" } : { color: "#ff0000"}}>{appContextData.whoami == "Játékos" ? <>+</> : <>-</>}{game.win}</span>akcse Talált számok:{game.wincount}</> : appContextData.whoami === "Üzemeltető" ? <button className='button' onClick={() => {
-                    ruleNumber(game.id);
-                }}>Sorsol</button> : <>Még sorsolásra vár</>}</div>
-            }) : null}
+            {appContextData.games !== undefined ? (
+                appContextData.games.map((game) => {
+                    return <div className='text'>{game.id}. Játék: Játékos megtett számai: {game.numbers[0]}, {game.numbers[1]}, {game.numbers[2]}, {game.numbers[3]}, {game.numbers[4]} {game.isRuled ? <>Sorsolt számok: {game.ruledNumbers[0]}, {game.ruledNumbers[1]}, {game.ruledNumbers[2]}, {game.ruledNumbers[3]}, {game.ruledNumbers[4]} <span style={appContextData.whoami === "Üzemeltető" ? { color: "#00ff00" } : { color: "#ff0000"}}>{appContextData.whoami == "Üzemeltető" ? <>+</> : <>-</>}{game.cost}</span>akcse <span style={appContextData.whoami === "Játékos" ? { color: "#00ff00" } : { color: "#ff0000"}}>{appContextData.whoami == "Játékos" ? <>+</> : <>-</>}{game.win}</span>akcse Talált számok:{game.wincount}</> : appContextData.whoami === "Üzemeltető" ? <button className='button' onClick={() => {
+                        ruleNumber(game.id);
+                    }}>Sorsol</button> : <>Még sorsolásra vár</>}</div>
+                })
+            ) : (
+                null
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default Tickets
+export default Tickets;
