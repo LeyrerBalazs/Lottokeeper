@@ -26,6 +26,32 @@ const Tickets = () => {
                     "ruledNumbers": nums
                 }
                 games.push(updated)
+                let winedcount = 0
+                for (let j=0; j < games[i].numbers.length; j++) {
+                    for (let k=0; k < nums.length; k++) {
+                        if (nums[k] === games[i].numbers[j]) {
+                            winedcount++;
+                        }
+                    }
+                }
+                switch (winedcount) {
+                    case 2:
+                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 500 * 0.3)
+                        appContextData.setAkcseOperator(appContextData.akcseOperator - 500 * 0.3)
+                        break;
+                    case 3:
+                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 500 * 0.7)
+                        appContextData.setAkcseOperator(appContextData.akcseOperator - 500 * 0.7)
+                        break;
+                    case 4:
+                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 500 * 2)
+                        appContextData.setAkcseOperator(appContextData.akcseOperator - 500 * 2)
+                        break;
+                    case 5:
+                        appContextData.setAkcsePlayer(appContextData.akcsePlayer + 500 * 5)
+                        appContextData.setAkcseOperator(appContextData.akcseOperator - 500 * 5)
+                        break;
+                }
             }
             else {
                 games.push(appContextData.games[i])
