@@ -47,9 +47,9 @@ const TopBar = () => {
         <p className="bar-text">Üzemeltető egyenlege: {appContextData.akcseOperator}</p>
         <img src={akcseImg} alt='akcseImg'  className='akcse-img' title="Akcse" />
       </div>
-      <button className="button" onClick={() => {
+      { appContextData.name !== "Ismeretlen" || appContextData.akcseOperator !== 0 || appContextData.akcsePlayer !== 10000 ? <button className="button" onClick={() => {
         appContextData.resetState();
-      }}>Visszaállítás/Start</button>
+      }}>Visszaállítás/Start</button> : null}
       <button className="button" onClick={() => {
         appContextData.whoami === "Játékos" ? (
           appContextData.setWhoami("Üzemeltető")

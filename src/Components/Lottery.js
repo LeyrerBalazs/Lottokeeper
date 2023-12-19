@@ -58,13 +58,16 @@ const Lottery = () => {
         if (appContextData.first !== true) {
             localStorage.setItem('akcsePlayer', appContextData.akcsePlayer);
             localStorage.setItem('akcseOperator', appContextData.akcseOperator);
-            localStorage.setItem('games', appContextData.games);
+            localStorage.setItem('games', JSON.stringify(appContextData.games));
         }
         else {
             appContextData.setFirst(false);
-            appContextData.setAkcsePlayer(parseInt(localStorage.getItem('akcsePlayer')))
-            appContextData.setAkcseOperator(parseInt(localStorage.getItem('akcseOperator')))
-            appContextData.setAkcseOperator(parseInt(localStorage.getItem('akcseOperator')))
+            const akcsePlayerData = localStorage.getItem('akcsePlayer')
+            appContextData.setAkcsePlayer(parseInt(akcsePlayerData ? akcsePlayerData : 10000))
+            const akcseOperatorData = localStorage.getItem('akcseOperator')
+            appContextData.setAkcseOperator(parseInt(akcseOperatorData ? akcseOperatorData : 0))
+            const gamesData = localStorage.getItem('games')
+            appContextData.setGames(gamesData ? JSON.parse(gamesData) : [])
         }
     }, [appContextData.akcsePlayer, appContextData.akcseOperator, appContextData.games]);
 
