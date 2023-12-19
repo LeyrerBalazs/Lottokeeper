@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAppContext } from '../AppContext';
 import './../Styles/Tickets.css';
+import akcseImg from './../Assets/akcse.png';
 
 const Tickets = () => {
     const appContextData = useAppContext();
@@ -23,7 +24,8 @@ const Tickets = () => {
                     "isRuled": true,
                     "ruledNumbers": nums,
                     "cost": 500,
-                    "win": 0
+                    "win": 0,
+                    "wincount": appContextData.games[i].wincount
                 };
                 let winedcount = 0;
                 for (let j=0; j < updated.numbers.length; j++) {
@@ -108,6 +110,8 @@ const Tickets = () => {
                             "wincount" : 5
                         };
                         break;
+                    default:
+                        break;
                 }
                 games.push(updated);
             }
@@ -120,11 +124,12 @@ const Tickets = () => {
 
     return (
         <div className='ticket-container'>
+            <div className='text'>| ID | Megtett számok | Sorsolás... ( Sorsolt számok | Tét | Nyeremény | Találat ) |</div>
             {appContextData.games !== undefined ? (
-                appContextData.games.map((game) => {
-                    return <div className='text'>{game.id}. Játék: Játékos megtett számai: {game.numbers[0]}, {game.numbers[1]}, {game.numbers[2]}, {game.numbers[3]}, {game.numbers[4]} {game.isRuled ? <>Sorsolt számok: {game.ruledNumbers[0]}, {game.ruledNumbers[1]}, {game.ruledNumbers[2]}, {game.ruledNumbers[3]}, {game.ruledNumbers[4]} <span style={appContextData.whoami === "Üzemeltető" ? { color: "#00ff00" } : { color: "#ff0000"}}>{appContextData.whoami == "Üzemeltető" ? <>+</> : <>-</>}{game.cost}</span>akcse <span style={appContextData.whoami === "Játékos" ? { color: "#00ff00" } : { color: "#ff0000"}}>{appContextData.whoami == "Játékos" ? <>+</> : <>-</>}{game.win}</span>akcse Talált számok:{game.wincount}</> : appContextData.whoami === "Üzemeltető" ? <button className='button' onClick={() => {
+                appContextData.games.toReversed().map((game) => {
+                    return <div className='text'>| {game.id}. | {game.numbers[0]}, {game.numbers[1]}, {game.numbers[2]}, {game.numbers[3]}, {game.numbers[4]} | {game.isRuled ? <>{game.ruledNumbers[0]}, {game.ruledNumbers[1]}, {game.ruledNumbers[2]}, {game.ruledNumbers[3]}, {game.ruledNumbers[4]} | <span style={appContextData.whoami === "Üzemeltető" ? { color: "#00ff00" } : { color: "#ff0000"}}>{appContextData.whoami === "Üzemeltető" ? <>+</> : <>-</>}{game.cost}</span><img src={akcseImg} alt='akcseImg'  className='akcse-img' title="Akcse" /> | <span style={appContextData.whoami === "Játékos" ? { color: "#00ff00" } : { color: "#ff0000"}}>{appContextData.whoami === "Játékos" ? <>+</> : <>-</>}{game.win}</span><img src={akcseImg} alt='akcseImg'  className='akcse-img' title="Akcse" /> | {game.wincount}</> : appContextData.whoami === "Üzemeltető" ? <button className='button' onClick={() => {
                         ruleNumber(game.id);
-                    }}>Sorsol</button> : <>Még sorsolásra vár</>}</div>
+                    }}>Sorsol</button> : <> Még sorsolásra vár</>} |</div>
                 })
             ) : (
                 null

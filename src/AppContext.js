@@ -12,6 +12,7 @@ export const AppContextProvider = ({ children }) => {
     const [isNameChange, setIsNameChange] = useState(false);
     const [games, setGames] = useState([]);
     const [selected, setSelected] = useState([]);
+    const [plusminus, setPlusminus] = useState(0)
 
     const resetState = () => {
         setName('Ismeretlen');
@@ -42,7 +43,9 @@ export const AppContextProvider = ({ children }) => {
         games,
         setGames,
         selected,
-        setSelected
+        setSelected,
+        plusminus,
+        setPlusminus
     };
 
     return (

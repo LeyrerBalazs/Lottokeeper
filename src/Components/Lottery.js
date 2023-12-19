@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '../AppContext';
 import './../Styles/Lottery.css';
+import akcseImg from './../Assets/akcse.png';
 
 const Lottery = () => {
     const [buttons, setButtons] = useState([]);
@@ -70,6 +71,7 @@ const Lottery = () => {
             const gamesData = localStorage.getItem('games');
             appContextData.setGames(gamesData ? JSON.parse(gamesData) : []);
         }
+        appContextData.setPlusminus(0 + appContextData.akcseOperator);
     }, [appContextData.akcsePlayer, appContextData.akcseOperator, appContextData.games]);
 
     const displayButtons = () => {
@@ -115,6 +117,11 @@ const Lottery = () => {
             ) : (
                 null
             )}
+            <div className='lottery-container'>
+                <span style={{ fontSize: " 50px" }}>Összesen: </span>
+                <span style={appContextData.whoami === "Üzemeltető" ? ( appContextData.plusminus > 0 ? {color: "#00ff00", fontSize: "50px"} : {color:"#ff0000", fontSize: "50px"} ) : ( appContextData.plusminus < 0 ? {color: "#00ff00", fontSize: "50px"} : {color:"#ff0000", fontSize: "50px"} )}>{appContextData.plusminus < 0 ? appContextData.plusminus * -1 : appContextData.plusminus }</span>
+                <img src={akcseImg} alt='akcseImg'  className='akcse-img' title="Akcse" />
+            </div>
         </>
     );
 };
