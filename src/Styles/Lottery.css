@@ -51,5 +51,11 @@
     border-radius: 20px;
 }
 .lottery-container .akcse-img {
-    width: 50px;
+    width: 55px;
+    height: 55px;
+}
+.lottery-container .input {
+    height: 40px;
+    width: 200px;
+    font-size: 35px;
 }

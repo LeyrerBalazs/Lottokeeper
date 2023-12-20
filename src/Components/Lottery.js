@@ -29,6 +29,8 @@ const Lottery = () => {
                 alert("Nincs elég akcséd hogy játsz!");
             }
             appContextData.setSelected([]);
+            appContextData.setNotRuled([...appContextData.notRuled, (appContextData.games.length + 1)]);
+            console.log(appContextData.notRuled);
         }
     };
 
@@ -61,6 +63,7 @@ const Lottery = () => {
             localStorage.setItem('akcsePlayer', appContextData.akcsePlayer);
             localStorage.setItem('akcseOperator', appContextData.akcseOperator);
             localStorage.setItem('games', JSON.stringify(appContextData.games));
+            localStorage.setItem('notRuled', JSON.stringify(appContextData.notRuled));
         }
         else {
             appContextData.setFirst(false);
@@ -70,9 +73,11 @@ const Lottery = () => {
             appContextData.setAkcseOperator(parseInt(akcseOperatorData ? akcseOperatorData : 0));
             const gamesData = localStorage.getItem('games');
             appContextData.setGames(gamesData ? JSON.parse(gamesData) : []);
+            const notRuled = localStorage.getItem('notRuled');
+            appContextData.setGames(notRuled ? JSON.parse(notRuled) : []);
         }
         appContextData.setPlusminus(0 + appContextData.akcseOperator);
-    }, [appContextData.akcsePlayer, appContextData.akcseOperator, appContextData.games]);
+    }, [appContextData.akcsePlayer, appContextData.akcseOperator, appContextData.games, appContextData.notRuled]);
 
     const displayButtons = () => {
         let selectedNums = appContextData.selected;
@@ -115,12 +120,14 @@ const Lottery = () => {
                     </div>
                 </>
             ) : (
-                null
+                <div className='lottery-container'>
+                    <input type="number" min="1" max={appContextData.notRuled.length} className='input' />
+                </div>
             )}
             <div className='lottery-container'>
-                <span style={{ fontSize: " 50px" }}>Összesen: </span>
-                <span style={appContextData.whoami === "Üzemeltető" ? ( appContextData.plusminus > 0 ? {color: "#00ff00", fontSize: "50px"} : {color:"#ff0000", fontSize: "50px"} ) : ( appContextData.plusminus < 0 ? {color: "#00ff00", fontSize: "50px"} : {color:"#ff0000", fontSize: "50px"} )}>{appContextData.plusminus < 0 ? appContextData.plusminus * -1 : appContextData.plusminus }</span>
-                <img src={akcseImg} alt='akcseImg'  className='akcse-img' title="Akcse" />
+                <span style={{ fontSize: " 50px",  backgroundColor: "#ffffff"}}>Összesen: </span>
+                <span style={appContextData.whoami === "Üzemeltető" ? ( appContextData.plusminus > 0 ? {backgroundColor: "#ffffff", color: "#00ff00", fontSize: "50px"} : {backgroundColor: "#ffffff", color:"#ff0000", fontSize: "50px"} ) : ( appContextData.plusminus < 0 ? {backgroundColor: "#ffffff", color: "#00ff00", fontSize: "50px"} : {backgroundColor: "#ffffff", color:"#ff0000", fontSize: "50px"} )}> {appContextData.plusminus < 0 ? appContextData.plusminus * -1 : appContextData.plusminus }</span>
+                <img style={{ backgroundColor: "#ffffff"}} src={akcseImg} alt='akcseImg'  className='akcse-img' title="Akcse" />
             </div>
         </>
     );
