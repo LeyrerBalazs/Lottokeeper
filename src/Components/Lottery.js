@@ -6,6 +6,7 @@ import akcseImg from './../Assets/akcse.png';
 const Lottery = () => {
     const [buttons, setButtons] = useState([]);
     const appContextData = useAppContext();
+    const [many, setMany] = useState(0);
 
     const betPlayer = () => {
         if (appContextData.selected.length !== 5) {
@@ -30,7 +31,6 @@ const Lottery = () => {
             }
             appContextData.setSelected([]);
             appContextData.setNotRuled([...appContextData.notRuled, (appContextData.games.length + 1)]);
-            console.log(appContextData.notRuled);
         }
     };
 
@@ -58,27 +58,7 @@ const Lottery = () => {
         }
     };
 
-    useEffect(() => {
-        if (appContextData.first !== true) {
-            localStorage.setItem('akcsePlayer', appContextData.akcsePlayer);
-            localStorage.setItem('akcseOperator', appContextData.akcseOperator);
-            localStorage.setItem('games', JSON.stringify(appContextData.games));
-            localStorage.setItem('notRuled', JSON.stringify(appContextData.notRuled));
-        }
-        else {
-            appContextData.setFirst(false);
-            const akcsePlayerData = localStorage.getItem('akcsePlayer');
-            appContextData.setAkcsePlayer(parseInt(akcsePlayerData ? akcsePlayerData : 10000));
-            const akcseOperatorData = localStorage.getItem('akcseOperator');
-            appContextData.setAkcseOperator(parseInt(akcseOperatorData ? akcseOperatorData : 0));
-            const gamesData = localStorage.getItem('games');
-            appContextData.setGames(gamesData ? JSON.parse(gamesData) : []);
-            const notRuled = localStorage.getItem('notRuled');
-            appContextData.setGames(notRuled ? JSON.parse(notRuled) : []);
-        }
-        appContextData.setPlusminus(0 + appContextData.akcseOperator);
-    }, [appContextData.akcsePlayer, appContextData.akcseOperator, appContextData.games, appContextData.notRuled]);
-
+    
     const displayButtons = () => {
         let selectedNums = appContextData.selected;
         let newButtons = [];
@@ -104,6 +84,15 @@ const Lottery = () => {
         setButtons(newButtons);
     };
 
+    const HandleManyRules = async() => {
+        for (let i=0; i < many; i++) {
+            console.log(i);
+            console.log(appContextData.notRuled[i])
+            await appContextData.ruleNumber(await appContextData.notRuled[i])
+        }
+        setMany(0)
+    }
+
     useEffect(() => {
         displayButtons();
     }, [appContextData.selected]);
@@ -121,7 +110,12 @@ const Lottery = () => {
                 </>
             ) : (
                 <div className='lottery-container'>
-                    <input type="number" min="1" max={appContextData.notRuled.length} className='input' />
+                    <input type="number" min="0" max={appContextData.notRuled.length} value={many} onChange={(event) => {
+                        setMany(event.target.value)
+                    }} className='input' />
+                    <button className='button4' onClick={() => {
+                        HandleManyRules()
+                    }}>{many} sorsolása</button>
                 </div>
             )}
             <div className='lottery-container'>

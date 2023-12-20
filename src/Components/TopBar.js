@@ -1,19 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAppContext } from '../AppContext';
 import akcseImg from './../Assets/akcse.png';
 import './../Styles/TopBar.css';
 
 const TopBar = () => {
   const appContextData = useAppContext();
-
-  useEffect (() => {
-    if (appContextData.first === true) {
-      appContextData.setName(localStorage.getItem('name'));
-    }
-    else {
-      localStorage.setItem('name', appContextData.name);
-    }
-  }, [appContextData.name]); 
 
   return (
     <div className="topbar-container">

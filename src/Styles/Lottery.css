@@ -56,6 +56,11 @@
 }
 .lottery-container .input {
     height: 40px;
-    width: 200px;
+    width: 80px;
     font-size: 35px;
+    text-align: center;
+}
+.lottery-container .button4 {
+    width: 200px;
+    font-size: 30px
 }
