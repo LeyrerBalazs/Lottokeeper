@@ -84,12 +84,13 @@ const Lottery = () => {
         setButtons(newButtons);
     };
 
-    const HandleManyRules = async() => {
+
+    const HandleManyRules = async () => {
         for (let i=0; i < many; i++) {
             await new Promise(resolve => setTimeout(resolve, 500))
             await appContextData.ruleNumber(appContextData.notRuled[i])
+            setMany(many - 1)
         }
-        setMany(0)
     }
 
     useEffect(() => {
