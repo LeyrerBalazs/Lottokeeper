@@ -141,8 +141,8 @@ export const AppContextProvider = ({ children }) => {
                 gamesTemp.push(games[i]);
             }
         }
-        await setGames(gamesTemp);
-        await setNotRuled(notRuled.filter(item => id !== item));
+        setNotRuled(notRuled.filter(item => id !== item));
+        setGames(gamesTemp);
     };
 
     useEffect(() => {

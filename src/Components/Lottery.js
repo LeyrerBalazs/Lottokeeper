@@ -86,9 +86,8 @@ const Lottery = () => {
 
     const HandleManyRules = async() => {
         for (let i=0; i < many; i++) {
-            console.log(i);
-            console.log(appContextData.notRuled[i])
-            await appContextData.ruleNumber(await appContextData.notRuled[i])
+            await new Promise(resolve => setTimeout(resolve, 500))
+            await appContextData.ruleNumber(appContextData.notRuled[i])
         }
         setMany(0)
     }
